@@ -29,16 +29,16 @@ def get_tasks():
     records=cursor.fetchall()
     return records
 
-@app.post("/add_task")
+@app.post("/add_tasks")
 def add_task(task:str=Form(...)):
     cursor=conn.cursor()
     cursor.execute("insert into todo (task) values (%s)",(task,))
     conn.commit()
     return "Added successfully"
 
-@app.post("/add_task")
-def add_task(task:str=Form(...)):
+@app.post("/delete_tasks")
+def add_task(id:str=Form(...)):
     cursor=conn.cursor()
-    cursor.execute("insert into todo (task) values (%s)",(task,))
+    cursor.execute("delete from todo where id=%s",(id,))
     conn.commit()
-    return "Added successfully"
+    return "Deleted successfully"
